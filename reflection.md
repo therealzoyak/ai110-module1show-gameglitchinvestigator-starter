@@ -21,30 +21,30 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 ## 2. How did you use AI as a teammate?
 
-- Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
-- Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
-- Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+I used VS Code Copilot for the actual debugging workflow and ChatGPT to help me plan how to use Copilot more carefully. One thing I did that helped a lot was starting separate Copilot chats for each bug, because otherwise the suggestions started mixing multiple problems together. For the hint bug, Copilot correctly pointed out that the comparison logic in check_guess was part of the problem and suggested moving that function into logic_utils.py so the logic wasn’t mixed with the Streamlit UI. After that change, I tested it using the debug panel in the app and also added a small pytest to make sure the function returned the correct outcome.
+
+One suggestion Copilot gave that I didn’t end up keeping was fixing the hint text directly in app.py after calling check_guess. Technically that would have made the hints look correct, but it meant the UI code was patching the logic instead of fixing it at the source. Since the assignment wanted the logic moved to logic_utils.py, I rejected that version and asked for a cleaner change where check_guess itself returned the correct message. After that I reran the app and tested a bunch of guesses against the debug secret to make sure the hints matched the actual number.
 
 ---
 
 ## 3. Debugging and testing your fixes
 
-- How did you decide whether a bug was really fixed?
-- Describe at least one test you ran (manual or using pytest)  
-  and what it showed you about your code.
-- Did AI help you design or understand any tests? How?
+I didn’t assume a bug was fixed just because Copilot suggested a change. For the hint issue, I kept using the Developer Debug Info panel and intentionally guessing numbers higher and lower than the secret to see if the hint direction made sense. For the New Game bug, I tested the flow where you win or lose first and then click New Game to make sure the app actually reset instead of showing the old “game over” state.
+
+I also added a pytest for the check_guess function. That part actually took a bit of debugging because pytest couldn’t import logic_utils.py at first, which caused the tests to crash before they even ran. I had to adjust the test file so Python could find the module. Once the import issue was fixed, the tests passed and confirmed that the function returned the correct outcomes for higher, lower, and winning guesses.
 
 ---
 
 ## 4. What did you learn about Streamlit and state?
 
-- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+One thing that finally made sense during this project is that Streamlit reruns the whole script every time something happens, like clicking a button or entering input. That means normal variables reset constantly unless they’re stored in st.session_state. Session state basically acts like memory for the app, so things like the secret number, score, and attempts can survive across reruns. Without that, the game would basically restart every time the user clicked something. Once I understood that, a lot of the weird behavior in the app made more sense.
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
-- What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
-- What is one thing you would do differently next time you work with AI on a coding task?
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+One habit from this project that I want to reuse is slowing down and debugging the code line by line instead of immediately assuming the AI suggestion is correct or looking for another tool (like Chat). When I actually averted my frustration and just line by line went through the logic and instructions, especially around the check_guess function and how session state was behaving, it became much easier to understand why the bugs were happening. They really are simple just tedious to find and that process made the fixes feel more intentional instead of just trial and error.
+
+One thing I would do differently next time when working with AI is relying a little less on ChatGPT when Copilot suggestions didn’t work immediately. I found that sometimes I jumped too quickly to another AI tool instead of first reading the console errors or tracing the code myself.
+
+One thing I noticed is that AI solutions sometimes overcomplicate things or add extra logic that isn’t really necessary. A few of the suggestions technically worked but were harder to understand or put the logic in the wrong place, so I had to simplify them or move the fix somewhere more appropriate. It made me realize that AI suggestions are useful starting points, but they still need to be reviewed and cleaned up so the code actually makes sense.

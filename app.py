@@ -112,7 +112,7 @@ with col2:
     new_game = st.button("New Game 🔁")
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
-# FIXME: New Game does not fully reset session state for a fresh round
+# FIX: Reset attempts, score, status, history, and difficulty-based secret so New Game starts a clean round
 if new_game:
     # reset attempt counter to the same initial baseline used at app start
     st.session_state.attempts = 1

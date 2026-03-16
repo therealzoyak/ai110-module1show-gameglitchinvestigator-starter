@@ -24,14 +24,31 @@ It wrote the code, ran away, and now the game is unplayable.
    - Keep fixing until all tests pass!
 
 ## 📝 Document Your Experience
+### Purpose of the game
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- A Streamlit number guessing game where the player tries to guess a secret number within a limited number of attempts.
+- The game provides hints telling the player whether their next guess should be higher or lower.
+- The goal of this project was to debug the broken AI-generated code and practice using AI tools (especially Copilot) to investigate and repair bugs.
+
+### Bugs that were discovered
+
+- The hint system was inconsistent and sometimes completely wrong (for example it told me to go higher when my guess was already higher than the secret number).
+- The attempt counter did not match the number of attempts shown in the sidebar.
+- Clicking **New Game** did not always reset the game properly and sometimes kept the previous game state.
+- The hint checkbox behaved strangely and sometimes required another guess before the hint appeared again.
+- Some parts of the code mixed UI logic and game logic, which made debugging more confusing.
+
+### Fixes that were applied
+
+- Moved the core game logic (`get_range_for_difficulty`, `parse_guess`, `check_guess`, `update_score`) from `app.py` into `logic_utils.py`.
+- Fixed the comparison logic in `check_guess` so the hints correctly match the relationship between the guess and the secret number.
+- Simplified the hint behavior so the message returned by `check_guess` is used directly instead of patching it in the UI.
+- Repaired the **New Game** behavior by resetting the relevant Streamlit session state variables so the game actually starts fresh.
+- Added `pytest` tests for `check_guess` to verify the outcomes `"Win"`, `"Too High"`, and `"Too Low"` behave correctly.
 
 ## 📸 Demo
+![Demo of working guessing game](demo.png)
 
-- [ ] [Insert a screenshot of your fixed, winning game here]
 
 ## 🚀 Stretch Features
 

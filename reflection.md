@@ -6,7 +6,6 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 - What did the game look like the first time you ran it?
 - List at least two concrete bugs you noticed at the start  
-<<<<<<< HEAD
   (for example: "the secret number kept changing" or "the hints were backwards").
   1. Enter didn't actually submit the guess
   2. it took forever for the guess box to load
@@ -16,9 +15,7 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
   6. Buggy hints? don't know what the number is but it tells me to go lower when i type in 100 and higher when i say 99, must be changing the secret number or had the wrong hints. The secret number was 15, told me 99 was too low and 100 was too high how weird is that?
   7. When I run out of all attempts and game is over and I click "New Game" it just keeps flashing me that game is over and to start a new game which is so sus
   
-=======
   (for example: "the hints were backwards").
->>>>>>> d28145213e029bd9f9244f5f8071e0985a5e266e
 
 ---
 

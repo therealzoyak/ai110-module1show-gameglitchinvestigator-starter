@@ -28,7 +28,7 @@ def parse_guess(raw: str):
 
     return True, value, None
 
-
+# FIXME: comparison logic may break because guess/secret are not always compared as the same type
 def check_guess(guess, secret):
     if guess == secret:
         return "Win", "🎉 Correct!"
@@ -105,7 +105,7 @@ if "history" not in st.session_state:
     st.session_state.history = []
 
 st.subheader("Make a guess")
-
+# FIXME: attempts-left display may be off because attempts state starts/increments inconsistently
 st.info(
     f"Guess a number between 1 and 100. "
     f"Attempts left: {attempt_limit - st.session_state.attempts}"
@@ -130,7 +130,7 @@ with col2:
     new_game = st.button("New Game 🔁")
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
-
+# FIXME: New Game does not fully reset session state for a fresh round
 if new_game:
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(1, 100)
@@ -154,7 +154,7 @@ if submit:
         st.error(err)
     else:
         st.session_state.history.append(guess_int)
-
+# FIXME: secret changes type here before check_guess, which may cause incorrect high/low hints  
         if st.session_state.attempts % 2 == 0:
             secret = str(st.session_state.secret)
         else:
